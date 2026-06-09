@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Remix: Vaibhav Agarwal Classes",
+  "description": "Premium Academic \u0026 Leadership Coaching Platform (VAC) for Classes Class 1-12 with comprehensive students tracking database, registration wizards, and admin command center dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
