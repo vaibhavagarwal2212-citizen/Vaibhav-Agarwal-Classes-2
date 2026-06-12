@@ -590,6 +590,14 @@ export const BatchSchedule: React.FC = () => {
                 className="bg-transparent text-xs font-bold text-slate-800 outline-none cursor-pointer pr-1"
               >
                 <option value="All">All Grades</option>
+                <option value="Class 1">Class 1</option>
+                <option value="Class 2">Class 2</option>
+                <option value="Class 3">Class 3</option>
+                <option value="Class 4">Class 4</option>
+                <option value="Class 5">Class 5</option>
+                <option value="Class 6">Class 6</option>
+                <option value="Class 7">Class 7</option>
+                <option value="Class 8">Class 8</option>
                 <option value="Class 9">Class 9</option>
                 <option value="Class 10">Class 10</option>
                 <option value="Class 11">Class 11</option>
