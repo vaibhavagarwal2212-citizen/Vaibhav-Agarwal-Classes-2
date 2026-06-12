@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+/// <reference types="react" />
+/// <reference types="react/jsx-runtime" />
+
 import React, { useState, useEffect } from 'react';
 import { LandingPage } from './components/LandingPage';
 import { RegistrationForm } from './components/RegistrationForm';
