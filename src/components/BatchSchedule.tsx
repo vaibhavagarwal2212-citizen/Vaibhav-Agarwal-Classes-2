@@ -57,22 +57,6 @@ const INITIAL_CLASSES: ScheduledClass[] = [
     enrolledCount: 18
   },
   {
-    id: 'VAC-SCH-003',
-    className: 'CA Foundation: Mercantile Law & Contracts',
-    subject: 'Mercantile Law',
-    teacher: 'Prof. Amrita Rao',
-    day: 'Monday',
-    startTime: '18:00',
-    endTime: '19:30',
-    room: 'Room 203 (Adajan Wing)',
-    format: 'Hybrid',
-    stream: 'Commerce',
-    grade: 'All',
-    description: 'Comprehensive analysis of the Indian Contract Act, 1872: Essentials of a valid contract, offer, and acceptance limits.',
-    capacity: 45,
-    enrolledCount: 42
-  },
-  {
     id: 'VAC-SCH-004',
     className: 'Class 11 Commerce: Double Entry Ledger Systems',
     subject: 'Accountancy',
@@ -103,22 +87,6 @@ const INITIAL_CLASSES: ScheduledClass[] = [
     description: 'Detailed analysis of nucleophilic substitution (SN1 vs SN2) mechanisms on alkyl halides, including stereochemical implications.',
     capacity: 35,
     enrolledCount: 31
-  },
-  {
-    id: 'VAC-SCH-006',
-    className: 'VisionPreneur: Startup Valuation & Pitches',
-    subject: 'VisionPreneur',
-    teacher: 'Vaibhav Agarwal (Founder)',
-    day: 'Tuesday',
-    startTime: '18:15',
-    endTime: '19:45',
-    room: 'Virtual Room Alpha',
-    format: 'Online',
-    stream: 'VisionPreneur',
-    grade: 'All',
-    description: 'Interactive leadership track: Learning how pre-seed startups calculate valuation, manage dilutable sweat equity, and build scalable pitch decks.',
-    capacity: 100,
-    enrolledCount: 64
   },
   {
     id: 'VAC-SCH-007',
