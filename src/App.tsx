@@ -162,15 +162,7 @@ export default function App() {
           {/* Quick Action elements */}
           <div className="flex gap-2.5 items-center">
             
-            {/* Dark Mode toggle simulation indicator */}
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              title="Toggle theme mockup"
-              className="p-2 rounded-lg bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white transition-all cursor-pointer"
-            >
-              {darkMode ? <Sun className="w-4 h-4 text-[#D4AF37]" /> : <Moon className="w-4 h-4" />}
-            </button>
-
+    
             <button
               onClick={() => setView('register')}
               className="hidden lg:flex px-4 py-2 bg-[#D4AF37] hover:bg-[#AA7C11] text-[#0A192F] font-display font-bold text-xs tracking-wide rounded-xl shadow-md transition-all active:scale-98 cursor-pointer"
