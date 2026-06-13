@@ -3,7 +3,7 @@ import { User, BookOpen, Heart, CheckCircle, ArrowRight, ArrowLeft, UploadCloud,
 import { Student } from '../types';
 import { SURAT_AREAS, SURAT_SCHOOLS } from '../data';
 import { motion } from 'motion/react';
-
+import { supabase } from '../lib/supabase';
 interface RegistrationFormProps {
   onRegisterStudent: (student: Student) => void;
   onNavigate: (view: 'landing' | 'register' | 'login' | 'admin' | 'schedule') => void;
@@ -49,7 +49,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onRegisterSt
     if (step > 1) setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (step < 4) return;
     if (!formData.conductChecked) {
@@ -87,7 +87,29 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onRegisterSt
       averageGrade: 'A',
       performanceScore: 92,
     };
+const { error } = await supabase
+  .from('students')
+  .insert([
+    {
+      student_id: assignedID,
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      class: formData.class,
+      stream: formData.stream,
+      school: formData.school,
+      father_name: formData.fatherName,
+      mother_name: formData.motherName,
+      parent_phone: formData.parentPhone,
+      password: 'VAC@1234'
+    }
+  ]);
 
+if (error) {
+  console.error('Supabase Error:', error);
+  alert('Database save failed');
+  return;
+}
     onRegisterStudent(newStudent);
     setSuccessID(assignedID);
   };
