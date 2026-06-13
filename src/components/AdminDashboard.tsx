@@ -475,9 +475,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   ];
 
   const mockStreams = [
-    { name: 'Science (JEE/NEET)', count: students.filter((s) => s.stream === 'Science').length * 80 + 340, color: '#0A192F' },
-    { name: 'Commerce (CA Prep)', count: students.filter((s) => s.stream === 'Commerce').length * 40 + 260, color: '#D4AF37' },
-    { name: 'Humanities & Found', count: students.filter((s) => s.stream === 'Foundation' || s.stream === 'Humanities').length * 50 + 210, color: '#172A45' },
+    { name: 'Science', count: students.filter((s) => s.stream === 'Science').length * 80 + 340, color: '#0A192F' },
+    { name: 'Commerce', count: students.filter((s) => s.stream === 'Commerce').length * 40 + 260, color: '#D4AF37' },
     { name: 'VisionPreneur Track', count: students.filter((s) => s.stream === 'VisionPreneur').length * 30 + 90, color: '#3066BE' }
   ];
 
