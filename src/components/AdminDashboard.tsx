@@ -985,6 +985,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white focus:ring-1 focus:ring-brand-gold outline-none text-xs font-semibold text-slate-700 font-sans"
                   >
                     <option value="All">All Classes</option>
+                    <option value="Class 1">Class 1</option>
+                    <option value="Class 2">Class 2</option>
+                    <option value="Class 3">Class 3</option>
+                    <option value="Class 4">Class 4</option>
+                    <option value="Class 5">Class 5</option>
+                    <option value="Class 6">Class 6</option>
+                    <option value="Class 7">Class 7</option>
+                    <option value="Class 8">Class 8</option>
                     <option value="Class 9">Class 9</option>
                     <option value="Class 10">Class 10</option>
                     <option value="Class 11">Class 11</option>
@@ -1000,11 +1008,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white focus:ring-1 focus:ring-brand-gold outline-none text-xs font-semibold text-slate-700 font-sans"
                   >
                     <option value="All">All Streams</option>
-                    <option value="Science">Science (JEE/NEET)</option>
-                    <option value="Commerce">Commerce (CA Prep)</option>
-                    <option value="Humanities">Humanities</option>
-                    <option value="Foundation">Foundation</option>
-                    <option value="VisionPreneur">VisionPreneur</option>
+                    <option value="Science">Science</option>
+                    <option value="Commerce">Commerce</option>
                   </select>
                 </div>
 

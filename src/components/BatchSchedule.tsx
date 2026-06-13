@@ -182,7 +182,7 @@ const INITIAL_CLASSES: ScheduledClass[] = [
     grade: 'Class 10',
     description: 'Exploring homologous series, isomerism basics, and nomenclature of saturated vs unsaturated hydrocarbons following IUPAC directives.',
     capacity: 25,
-    enrolledCount: 23
+    enrolledCount: 2
   },
 ];
 
