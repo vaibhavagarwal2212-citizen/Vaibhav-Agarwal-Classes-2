@@ -106,8 +106,8 @@ const { error } = await supabase
   ]);
 
 if (error) {
-  console.error('Supabase Error:', error);
-  alert('Database save failed');
+  console.error('Supabase Error Full:', JSON.stringify(error, null, 2));
+alert(JSON.stringify(error));
   return;
 }
     onRegisterStudent(newStudent);
