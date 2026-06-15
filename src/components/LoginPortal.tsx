@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { KeyRound, Shield, Users, Award, Landmark, PhoneCall, CheckCircle, HelpCircle, Lock } from 'lucide-react';
 import { Student } from '../types';
 import { motion } from 'motion/react';
-
+import { supabase } from '../lib/supabase';
 interface LoginPortalProps {
   onNavigate: (view: 'landing' | 'register' | 'login' | 'admin' | 'schedule') => void;
   students: Student[];
@@ -18,7 +18,7 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
   isTeacherLoggedIn,
   setIsTeacherLoggedIn,
 }) => {
-  const [activeRole, setActiveRole] = useState<Role>('Admin');
+  const [activeRole, setActiveRole] = useState<Role>('Student');
   
   // Standard Login credentials
   const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -42,14 +42,15 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
   const [teacherSyncStatus, setTeacherSyncStatus] = useState<string | null>(null);
   const [localStudentScores, setLocalStudentScores] = useState<Record<string, number>>({});
 
-  const handleStandardLogin = (e: React.FormEvent) => {
+  const handleStandardLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (activeRole === 'Admin') {
       // Allow testing bypass easily as well as checks
-      if (credentials.username === 'admin@vac' || credentials.username === 'admin') {
-        setIsTeacherLoggedIn(true);
-        onNavigate('admin');
+      if ( credentials.username === 'admin' &&
+           credentials.password === 'VAC@Admin123'
+        )  {
+        alert('Invalid Admin Credentials');
         return;
       }
       // If student search matches name block:
@@ -62,17 +63,27 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
       setIsTeacherLoggedIn(true);
       onNavigate('admin');
     } else if (activeRole === 'Student' || activeRole === 'Parent') {
-      // Dynamically locate student from our database so progress numbers match!
-      const userLower = credentials.username.toLowerCase();
-      // Find matches by name or mail
-      const match = students.find(
-        (s) => s.email.toLowerCase().includes(userLower) || s.name.toLowerCase().includes(userLower)
-      ) || students[0];
-      setLoggedInSimObject(match);
+
+  const { data, error } = await supabase
+    .from('students')
+    .select('*')
+    .eq('student_id', credentials.username)
+    .eq('password', credentials.password)
+    .single();
+
+   if (error || !data) {
+    alert('Invalid Student ID or Password');
+    return;
+  }
+
+  setLoggedInSimObject(data as any);
+  alert('Login Successful');
+  return;
+
     } else {
-      // Teacher mode
-      setIsTeacherLoggedIn(true);
-    }
+  alert('Teacher login not configured');
+  return;
+}
   };
 
   const handleSendOtp = () => {
@@ -81,18 +92,20 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
   };
 
   const handleVerifyOtp = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (activeRole === 'Admin') {
-      setIsTeacherLoggedIn(true);
-      onNavigate('admin');
-    } else if (activeRole === 'Teacher') {
-      setIsTeacherLoggedIn(true);
-    } else {
-      setLoggedInSimObject(students[0]);
-    }
-  };
+  e.preventDefault();
 
-  return (
+  if (activeRole === 'Admin') {
+    setIsTeacherLoggedIn(true);
+    onNavigate('admin');
+
+  } else if (activeRole === 'Teacher') {
+    setIsTeacherLoggedIn(true);
+
+  } else {
+    alert('No student found');
+    return;
+  }
+}
     <div className="bg-[#FAF9F6] text-slate-800 py-12 px-4 sm:px-6 min-h-[calc(100vh-64px)] flex items-center justify-center">
       <div className="w-full max-w-xl bg-white rounded-3xl border border-[#cbd5e1]/40 shadow-xl overflow-hidden">
         
@@ -679,5 +692,5 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
 
       </div>
     </div>
-  );
+
 };
