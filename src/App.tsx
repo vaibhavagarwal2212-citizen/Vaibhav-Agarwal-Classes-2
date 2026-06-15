@@ -34,7 +34,7 @@ function ProtectedRoute({ isAuthorized, onRedirect, children }: ProtectedRoutePr
   }, [isAuthorized, onRedirect]);
 
   if (!isAuthorized) {
-    return null;
+    return <h1>NOT AUTHORIZED</h1>;
   }
 
   return <>{children}</>;
