@@ -50,6 +50,8 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
       if ( credentials.username === 'admin' &&
            credentials.password === 'VAC@Admin123'
         )  {
+          setIsTeacherLoggedIn(true);
+          onNavigate('admin');
         alert('Invalid Admin Credentials');
         return;
       }
@@ -59,9 +61,8 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
         setLoggedInSimObject(match);
         return;
       }
-      // Fallback
-      setIsTeacherLoggedIn(true);
-      onNavigate('admin');
+         alert('Invalid Admin Credentials');
+         return;
     } else if (activeRole === 'Student' || activeRole === 'Parent') {
 
   const { data, error } = await supabase
@@ -106,6 +107,7 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
     return;
   }
 }
+    return (
     <div className="bg-[#FAF9F6] text-slate-800 py-12 px-4 sm:px-6 min-h-[calc(100vh-64px)] flex items-center justify-center">
       <div className="w-full max-w-xl bg-white rounded-3xl border border-[#cbd5e1]/40 shadow-xl overflow-hidden">
         
@@ -443,7 +445,6 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
                 💬 WhatsApp Faculty HelpDesk
               </a>
               <button
-                onClick={() => onNavigate('admin')}
                 className="py-2.5 px-4 bg-brand-cyan hover:bg-brand-blue text-white rounded-xl text-xs font-display font-medium transition-all cursor-pointer"
               >
                 Open Admin Center
@@ -690,7 +691,8 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
           </div>
         )}
 
-      </div>
-    </div>
+          </div>
+  </div>
+);
 
 };
