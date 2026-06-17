@@ -419,6 +419,10 @@ alert(JSON.stringify(error));
                         <option>Class 12</option>
                       </select>
                     </div>
+                      {(
+                        formData.class === 'Class 11' ||
+                        formData.class === 'Class 12'
+                      ) && (
 
                     <div>
                       <label className="block text-xs font-mono text-slate-500 uppercase tracking-wider mb-1">Academic Stream Elective *</label>
@@ -427,15 +431,17 @@ alert(JSON.stringify(error));
                         onChange={(e) => setFormData({ ...formData, stream: e.target.value as any })}
                         className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-brand-gold focus:outline-none bg-stone-50/50"
                       >
-                        <option value="Science">Science (JEE/NEET Prep)</option>
-                        <option value="Commerce">Commerce (CA Foundation Target)</option>
-                        <option value="Humanities">Humanities Track</option>
+                        <option value="Science">Science</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="Arts">Arts</option>
                         <option value="Foundation">Foundation Division</option>
                         <option value="VisionPreneur">VisionPreneur Track</option>
                       </select>
                     </div>
+                    )}
                   </div>
-
+                
+                  
                   <div>
                     <label className="block text-xs font-mono text-slate-500 uppercase tracking-wider mb-2">Preferred Study Delivery Format *</label>
                     <div className="grid grid-cols-3 gap-3">
