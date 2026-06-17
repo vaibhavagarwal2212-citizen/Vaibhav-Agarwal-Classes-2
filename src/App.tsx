@@ -16,8 +16,9 @@ import { AttendanceTerminal } from './components/AttendanceTerminal';
 import { AssistantWidget } from './components/AssistantWidget';
 import { Student } from './types';
 import { INITIAL_STUDENTS } from './data';
+import { Compass, GraduationCap, Users, UserCheck, Moon, Sun, Laptop } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import TeacherRegistration from './components/TeacherRegistration';
+
 interface ProtectedRouteProps {
   isAuthorized: boolean;
   onRedirect: () => void;
@@ -40,7 +41,7 @@ function ProtectedRoute({ isAuthorized, onRedirect, children }: ProtectedRoutePr
 }
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'register' | 'teacher-register' | 'login' | 'admin' | 'schedule' | 'terminal'>('landing');
+  const [view, setView] = useState<'landing' | 'register' | 'login' | 'admin' | 'schedule' | 'terminal' | 'teacher-register'>('landing');
   const [students, setStudents] = useState<Student[]>(() => {
     // Attempt local storage sync for added persistency value!
     const stored = localStorage.getItem('vac_students_data');
@@ -206,10 +207,6 @@ export default function App() {
             {view === 'register' && (
               <RegistrationForm onRegisterStudent={handleAddStudent} onNavigate={setView} />
             )}
-            
-            {view === 'teacher-register' && (
-              <TeacherRegistration />
-           )}
             {view === 'login' && (
               <LoginPortal
                 onNavigate={setView}

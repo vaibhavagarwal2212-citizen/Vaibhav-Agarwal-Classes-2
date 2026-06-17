@@ -287,7 +287,20 @@ export const SURAT_SCHOOLS = [
   'Ryan International School',
   'TGB International School',
   'Lancers Army School',
-  'St. Xavier’s High School'
+  'St. Xaviers High School',
+  'P.P. Savani School',
+  'J.H. Ambani School',
+  'R.D. Goenka International School',
+  'Nanduba School',
+  'Jeevan Bharti School',
+  'Lourdes Convent School',
+  'Kendriya Vidyalaya Surat',
+  'Gajera Global School',
+  'Vibgyor High School',
+  'Podar International School',
+  'TM Patel International School',
+  'Presidency School',
+  'Shree Swaminarayan Gurukul',
 ];
 
 export const TESTIMONIALS = [

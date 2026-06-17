@@ -6,7 +6,7 @@ import ScholarshipCalculator from './ScholarshipCalculator';
 import { INSTITUTE_DETAILS } from '../utils/vacConfig';
 
 interface LandingPageProps {
-  onNavigate: (view: 'landing' | 'register' | 'login' | 'admin' | 'schedule' | 'teacher-register') => void;
+  onNavigate: (view: 'landing' | 'register' | 'login' | 'admin' | 'schedule') => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
@@ -101,13 +101,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
                 className="px-6 py-3 rounded-xl bg-brand-gold hover:bg-brand-gold-dark text-brand-blue font-display font-bold text-sm tracking-wide transition-all shadow-md active:scale-98 flex items-center gap-2 cursor-pointer"
               >
                 Enroll Now <ArrowRight className="w-4 h-4" />
-              </button>
-              <button
-                id="btn-teacher-register"
-                onClick={() => onNavigate('teacher-register')}
-                className="px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
->
-                Teacher Registration
               </button>
               <button
                 id="btn-hero-schedule"
