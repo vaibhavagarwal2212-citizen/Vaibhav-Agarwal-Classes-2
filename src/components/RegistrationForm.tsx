@@ -270,6 +270,9 @@ alert(JSON.stringify(error));
                       <input
                         type="text"
                         required
+                        minLength={3}
+                        pattern="^[A-Za-z ]+$"
+                        title="Enter valid name using letters only"
                         placeholder="Aryan Kapoor"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -294,6 +297,9 @@ alert(JSON.stringify(error));
                       <input
                         type="tel"
                         required
+                        pattern="[6-9]{1}[0-9]{9}"
+                        maxLength={10}
+                        title="Enter valid 10 digit mobile number"
                         placeholder="+91 XXXXX XXXXX"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -319,7 +325,10 @@ alert(JSON.stringify(error));
                       <label className="block text-xs font-mono text-slate-500 uppercase tracking-wider mb-1">Email ID</label>
                       <input
                         type="email"
-                        placeholder="aryan@gmail.com"
+                        required
+                        pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                        title="Enter valid email address"
+                        placeholder="student@gmail.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-brand-gold focus:outline-none bg-stone-50/50"
@@ -455,6 +464,9 @@ alert(JSON.stringify(error));
                       <input
                         type="text"
                         required
+                        minLength={3}
+                        pattern="^[A-Za-z ]+$"
+                        title="Enter valid name using letters only"
                         placeholder="e.g. Rajesh Kapoor"
                         value={formData.fatherName}
                         onChange={(e) => setFormData({ ...formData, fatherName: e.target.value })}
@@ -466,6 +478,9 @@ alert(JSON.stringify(error));
                       <input
                         type="text"
                         required
+                        minLength={3}
+                        pattern="^[A-Za-z ]+$"
+                        title="Enter valid name using letters only"
                         placeholder="e.g. Meera Kapoor"
                         value={formData.motherName}
                         onChange={(e) => setFormData({ ...formData, motherName: e.target.value })}
@@ -480,6 +495,10 @@ alert(JSON.stringify(error));
                       <input
                         type="tel"
                         required
+                        minLength={10}
+                        maxLength={10}
+                        pattern="[6-9]{1}[0-9]{9}"
+                        title="Enter valid 10 digit mobile number"
                         placeholder="+91 98250 XXXXX"
                         value={formData.parentPhone}
                         onChange={(e) => setFormData({ ...formData, parentPhone: e.target.value })}
@@ -567,7 +586,15 @@ alert(JSON.stringify(error));
                   <button
                     type="button"
                     onClick={handleNext}
-                    disabled={step === 1 && !formData.name}
+                    disabled={
+                     step === 1 &&
+                     (
+                       formData.name.length < 3 ||
+                       !/^[A-Za-z ]+$/.test(formData.name) ||
+                       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) ||
+                       !/^[6-9][0-9]{9}$/.test(formData.phone)
+                      )
+                    }
                     className="px-5 py-2.5 bg-brand-cyan hover:bg-brand-blue text-white disabled:opacity-50 rounded-xl text-xs font-display font-bold transition-all flex items-center gap-1.5 cursor-pointer ml-auto"
                   >
                     Next Step <ArrowRight className="w-3.5 h-3.5" />
