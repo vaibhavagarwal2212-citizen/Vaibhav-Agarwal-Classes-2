@@ -22,7 +22,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onRegisterSt
     gender: 'Female',
     area: 'Althan',
     school: 'Delhi Public School (DPS) Surat',
-    class: 'Class 12',
+    class: 'Class 1',
     stream: 'Science' as any,
     format: 'Offline' as any,
     fatherName: '',
@@ -238,7 +238,7 @@ alert(JSON.stringify(error));
                       gender: 'Female',
                       area: 'Althan',
                       school: 'Delhi Public School (DPS) Surat',
-                      class: 'Class 12',
+                      class: 'Class 1',
                       stream: 'Science',
                       format: 'Offline',
                       fatherName: '',
@@ -405,6 +405,14 @@ alert(JSON.stringify(error));
                         onChange={(e) => setFormData({ ...formData, class: e.target.value })}
                         className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-brand-gold focus:outline-none bg-stone-50/50"
                       >
+                        <option>Class 1</option>
+                        <option>Class 2</option>
+                        <option>Class 3</option>
+                        <option>Class 4</option>
+                        <option>Class 5</option>
+                        <option>Class 6</option>
+                        <option>Class 7</option>
+                        <option>Class 8</option>
                         <option>Class 9</option>
                         <option>Class 10</option>
                         <option>Class 11</option>
