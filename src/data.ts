@@ -301,6 +301,7 @@ export const SURAT_SCHOOLS = [
   'TM Patel International School',
   'Presidency School',
   'Shree Swaminarayan Gurukul',
+  'Other'
 ];
 
 export const TESTIMONIALS = [
