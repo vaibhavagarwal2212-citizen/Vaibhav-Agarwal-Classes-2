@@ -41,14 +41,14 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
   const [teacherAttendanceStatus, setTeacherAttendanceStatus] = useState<'idle' | 'scanning' | 'completed'>('idle');
   const [teacherSyncStatus, setTeacherSyncStatus] = useState<string | null>(null);
   const [localStudentScores, setLocalStudentScores] = useState<Record<string, number>>({});
-
+  const ADMIN_USERNAME = import.meta.env.VITE_ADMIN_USERNAME;
+  const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
   const handleStandardLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (activeRole === 'Admin') {
-      // Allow testing bypass easily as well as checks
-      if ( credentials.username === 'admin' &&
-           credentials.password === 'VAC@Admin123'
+            if ( credentials.username === ADMIN_USERNAME &&
+           credentials.password === ADMIN_PASSWORD
         )  {
           setIsTeacherLoggedIn(true);
           onNavigate('admin');
@@ -437,7 +437,7 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
             {/* Call Action or WhatsApp Faculty Link */}
             <div className="flex gap-2">
               <a
-                href="https://wa.me/919825014832"
+                href="https://wa.me/+919274720563"
                 target="_blank"
                 rel="noreferrer"
                 className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-center text-xs font-display font-bold tracking-wide transition-all shadow-xs flex items-center justify-center gap-1.5"

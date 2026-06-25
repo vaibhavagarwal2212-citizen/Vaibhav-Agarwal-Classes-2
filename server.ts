@@ -1,23 +1,31 @@
 import express from "express";
 import path from "path";
 import cors from "cors";
+import dotenv from "dotenv";
 import { createServer as createViteServer } from "vite";
+import { createClient } from '@supabase/supabase-js';
+dotenv.config();
+console.log("SUPABASE_URL =", process.env.SUPABASE_URL);
+console.log("SUPABASE_ANON_KEY =", process.env.SUPABASE_ANON_KEY?.substring(0,20));
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_ANON_KEY!
+);
 
 // Mock In-Memory Database Schema (Pre-populated with required and default active datasets)
 const VAC_ADMIN_DIRECTORY = {
-  masterAdmin: { name: "Vaibhav Agarwal", phone: "+919637716664", email: "vaclasses2018@gmail.com" },
-  academicAdmin: { name: "Kajal Agarwal", phone: "+919586032030", email: "kajal.agr23june@gmail.com" },
-  deskAdmin: { name: "Jitendra Maurya", phone: "+917383123990", email: "mauryajitendra853@gmail.com" }
+  masterAdmin: { name: "Vaibhav Agarwal", phone: "+919274720563", email: "vaclasses2018@gmail.com" },
 };
 
 const CAMPUS_METADATA = {
-  address: "Office no 101, 102 JMD Exclluses Business Space hub, Bhimrad, Althan, Surat - 395017",
-  helpline: "+919637716664"
+  "Head office address": "Office no 101, 102 JMD Exclluses Business Space hub, Bhimrad, Althan, Surat - 395017",
+  "branch office address": "Office no 1001 Vaibhav Complex OPPO. Ashiwad Complex, Bhatar Road Surat - 395001",
+  "helpline": "+919274720563"
 };
 
 const studentsDatabase: Record<string, { id: string; name: string; standard: string; parent_name: string; parent_phone: string; status: string }> = {
-  "STU-101": { id: "STU-101", name: "Yash Kumar", standard: "12", parent_name: "Mr. Kumar", parent_phone: "+919637716664", status: "Out" },
-  "STU-102": { id: "STU-102", name: "Kajal S.", standard: "10", parent_name: "Mrs. Shah", parent_phone: "+919586032030", status: "Out" },
+  "STU-101": { id: "STU-101", name: "Yash Kumar", standard: "12", parent_name: "Mr. Kumar", parent_phone: "+919274720563", status: "Out" },
+  "STU-102": { id: "STU-102", name: "Kajal S.", standard: "10", parent_name: "Mrs. Shah", parent_phone: "+919274720563", status: "Out" },
   
   // Real active VAC students for complete integration audit sync!
   "VAC-2026-1049": { id: "VAC-2026-1049", name: "Aryan Kapoor", standard: "12", parent_name: "Rajesh Kapoor", parent_phone: "+91 98250 88211", status: "Out" },
@@ -72,20 +80,23 @@ async function startServer() {
     const queryLower = query.toLowerCase();
 
     // Look up exact or fuzzy matching student
-    let student = studentsDatabase[query];
+    let student: any = null;
+
+    const { data } = await supabase
+    .from('students')
+    .select('*')
+    .eq('student_id', query)
+    .single();
+
+   if (data) {
+    student = data;
+}
     
     if (!student) {
-      // Find matching keys
-      const matchedKey = Object.keys(studentsDatabase).find(key => {
-        const item = studentsDatabase[key];
-        return key.toLowerCase() === queryLower ||
-               item.name.toLowerCase().includes(queryLower) ||
-               key.split('-').pop()?.toLowerCase() === queryLower;
+      return res.status(404).json({
+      success: false,
+        message: 'Student not found in Supabase'
       });
-
-      if (matchedKey) {
-        student = studentsDatabase[matchedKey];
-      }
     }
 
     if (!student) {
@@ -126,45 +137,12 @@ async function startServer() {
   });
 
   // Send student report & trigger WhatsApp API gateway call using official VAC administrative keys
+   /*
   app.post('/api/report/send', async (req, res) => {
     const { studentId, studentData, reportType, customMessage } = req.body;
 
-    if (!studentId) {
-      return res.status(400).json({ success: false, message: "Missing student identification code." });
-    }
-
-    const query = studentId.trim();
-    const queryLower = query.toLowerCase();
-    
-    let student = studentsDatabase[query];
-    if (!student) {
-      const matchedKey = Object.keys(studentsDatabase).find(key => {
-        const item = studentsDatabase[key];
-        return key.toLowerCase() === queryLower ||
-               item.name.toLowerCase().includes(queryLower) ||
-               key.split('-').pop()?.toLowerCase() === queryLower;
-      });
-
-      if (matchedKey) {
-        student = studentsDatabase[matchedKey];
-      }
-    }
-
     // If student doesn't exist in server memory database but structure was supplied by frontend (e.g. newly registered students)
-    if (!student && studentData) {
-      studentsDatabase[query] = {
-        id: studentData.id || query,
-        name: studentData.name,
-        standard: studentData.class || studentData.standard || "12",
-        parent_name: studentData.parents?.fatherName || studentData.parent_name || "Parent",
-        parent_phone: studentData.parents?.parentPhone || studentData.parent_phone || "+919637716664",
-        status: studentData.status || "Active"
-      };
-      student = studentsDatabase[query];
-      console.log(`[DATABASE AUTO-SYNC] Synchronized new scholar profile to backend database: ${student.id} (${student.name})`);
-    }
-
-    if (!student) {
+       if (!student) {
       return res.status(404).json({ success: false, message: "Student record token not mapped in database rosters." });
     }
 
@@ -195,13 +173,11 @@ async function startServer() {
       text += `📝 *Administrative Remarks:* "${customMessage}"\n\n`;
     }
 
-    text += `📍 *Campus Location:* ${CAMPUS_METADATA.address}\n\n`;
+    text += `📍 *Campus Location:* ${CAMPUS_METADATA["Head office address"]}\n\n`;
     text += `📞 *VAC Help Desk Operations:* ${CAMPUS_METADATA.helpline}\n\n`;
     
     text += `*Official Admin Supervisors in Thread:*\n`;
     text += `• Director Vaibhav Sir (${adminKeys.masterAdmin.name}): ${adminKeys.masterAdmin.phone}\n`;
-    text += `• Academics Kajal Ma'am (${adminKeys.academicAdmin.name}): ${adminKeys.academicAdmin.phone}\n`;
-    text += `• Desk Admin Jitendra Sir (${adminKeys.deskAdmin.name}): ${adminKeys.deskAdmin.phone}\n`;
     text += `───────────────────\n`;
     text += `_Report transmitted dynamically via VAC official backend system gateway._`;
 
@@ -220,6 +196,7 @@ async function startServer() {
       waUrl: waUrl
     });
   });
+  */
 
   // Health check endpoint
   app.get('/api/health', (req, res) => {

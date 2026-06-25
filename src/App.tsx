@@ -41,11 +41,11 @@ function ProtectedRoute({ isAuthorized, onRedirect, children }: ProtectedRoutePr
 }
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'register' | 'login' | 'admin' | 'schedule' | 'terminal' | 'teacher-register'>('landing');
+  const [view, setView] = useState<'landing' | 'register' | 'login' | 'admin' | 'schedule' | 'terminal'>('landing');
   const [students, setStudents] = useState<Student[]>(() => {
     // Attempt local storage sync for added persistency value!
     const stored = localStorage.getItem('vac_students_data');
-    return stored ? JSON.parse(stored) : INITIAL_STUDENTS;
+    return stored ? JSON.parse(stored) : [];
   });
 
   const [isTeacherLoggedIn, setIsTeacherLoggedIn] = useState<boolean>(() => {
