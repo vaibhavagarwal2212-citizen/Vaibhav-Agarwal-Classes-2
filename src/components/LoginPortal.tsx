@@ -43,12 +43,13 @@ export const LoginPortal: React.FC<LoginPortalProps> = ({
   const [localStudentScores, setLocalStudentScores] = useState<Record<string, number>>({});
   const ADMIN_USERNAME = import.meta.env.VITE_ADMIN_USERNAME;
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+  console.log('ADMIN CHECK', ADMIN_USERNAME, ADMIN_PASSWORD);
   const handleStandardLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (activeRole === 'Admin') {
-            if ( credentials.username === ADMIN_USERNAME &&
-           credentials.password === ADMIN_PASSWORD
+            if ( credentials.username === 'vacadmin' &&
+           credentials.password === 'VAC2026'
         )  {
           setIsTeacherLoggedIn(true);
           onNavigate('admin');
